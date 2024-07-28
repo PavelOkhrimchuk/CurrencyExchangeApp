@@ -1,4 +1,7 @@
 package com.ohrim.repository;
 
-public interface CurrencyRepository {
+import com.ohrim.model.Currency;
+
+public interface CurrencyRepository extends Repository<Integer, Currency> {
+
 }

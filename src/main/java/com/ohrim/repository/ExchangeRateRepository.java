@@ -1,4 +1,6 @@
 package com.ohrim.repository;
 
-public interface ExchangeRateRepository {
+import com.ohrim.model.ExchangeRate;
+
+public interface ExchangeRateRepository extends Repository<Integer, ExchangeRate> {
 }
