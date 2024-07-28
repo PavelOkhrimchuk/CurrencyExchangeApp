@@ -103,6 +103,25 @@ public class CurrencyRepositoryImpl implements CurrencyRepository{
 
     }
 
+    @Override
+    @SneakyThrows
+    public Optional<Currency> findByCode(String code) {
+        String query = "SELECT * FROM currencies WHERE code = ?";
+        Currency currency = null;
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, code);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    currency = buildCurrency(resultSet);
+                }
+            }
+        }
+        return Optional.ofNullable(currency);
+    }
+
+
 
     private Currency buildCurrency(ResultSet resultSet) throws SQLException {
         return new Currency(
@@ -113,4 +132,6 @@ public class CurrencyRepositoryImpl implements CurrencyRepository{
         );
 
     }
+
+
 }
