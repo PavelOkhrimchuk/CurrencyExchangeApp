@@ -1,0 +1,4 @@
+package com.ohrim.repository;
+
+public class ExchangeRateRepositoryImpl {
+}
