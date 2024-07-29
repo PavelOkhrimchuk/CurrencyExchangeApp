@@ -3,7 +3,6 @@ package com.ohrim.service;
 import com.ohrim.dto.ExchangeRateDto;
 import com.ohrim.exception.NotFoundException;
 import com.ohrim.mapper.DtoConverter;
-import com.ohrim.model.Currency;
 import com.ohrim.model.ExchangeRate;
 import com.ohrim.repository.CurrencyRepository;
 import com.ohrim.repository.ExchangeRateRepository;
@@ -55,55 +54,72 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     @Override
     public ExchangeRateDto exchangeCurrency(String from, String to, BigDecimal amount) {
-        Currency baseCurrency = currencyRepository.findByCode(from)
-                .orElseThrow(() -> new NotFoundException("Base currency not found"));
-        Currency targetCurrency = currencyRepository.findByCode(to)
-                .orElseThrow(() -> new NotFoundException("Target currency not found"));
 
+        Optional<ExchangeRateDto> directRateDto = findDirectRate(from, to, amount);
+        if (directRateDto.isPresent()) {
+            return directRateDto.get();
+        }
+
+
+        Optional<ExchangeRateDto> reverseRateDto = findReverseRate(from, to, amount);
+        if (reverseRateDto.isPresent()) {
+            return reverseRateDto.get();
+        }
+
+
+        Optional<ExchangeRateDto> crossRateDto = findCrossRate(from, to, amount);
+        if (crossRateDto.isPresent()) {
+            return crossRateDto.get();
+        }
+
+        throw new NotFoundException("Exchange rate not found for the provided currencies.");
+    }
+
+    private Optional<ExchangeRateDto> findDirectRate(String from, String to, BigDecimal amount) {
         Optional<ExchangeRate> directRate = exchangeRateRepository.findByBaseCurrencyCodeAndTargetCurrencyCode(from, to);
         if (directRate.isPresent()) {
             BigDecimal rate = directRate.get().getRate();
-            BigDecimal exchangedAmount = amount.multiply(rate);
-            return ExchangeRateDto.builder()
-                    .baseCurrency(DtoConverter.toCurrencyDto(baseCurrency))
-                    .targetCurrency(DtoConverter.toCurrencyDto(targetCurrency))
+            BigDecimal exchangedAmount = amount.multiply(rate).setScale(2, RoundingMode.HALF_UP);
+            return Optional.of(ExchangeRateDto.builder()
+                    .baseCurrency(DtoConverter.toCurrencyDto(directRate.get().getBaseCurrency()))
+                    .targetCurrency(DtoConverter.toCurrencyDto(directRate.get().getTargetCurrency()))
                     .rate(exchangedAmount)
-                    .build();
+                    .build());
         }
+        return Optional.empty();
+    }
 
+    private Optional<ExchangeRateDto> findReverseRate(String from, String to, BigDecimal amount) {
         Optional<ExchangeRate> reverseRate = exchangeRateRepository.findByBaseCurrencyCodeAndTargetCurrencyCode(to, from);
         if (reverseRate.isPresent()) {
             BigDecimal rate = BigDecimal.ONE.divide(reverseRate.get().getRate(), 4, RoundingMode.HALF_UP);
-            BigDecimal exchangedAmount = amount.multiply(rate);
-            exchangedAmount = exchangedAmount.setScale(2, RoundingMode.HALF_UP);
-            return ExchangeRateDto.builder()
-                    .baseCurrency(DtoConverter.toCurrencyDto(baseCurrency))
-                    .targetCurrency(DtoConverter.toCurrencyDto(targetCurrency))
+            BigDecimal exchangedAmount = amount.multiply(rate).setScale(2, RoundingMode.HALF_UP);
+            return Optional.of(ExchangeRateDto.builder()
+                    .baseCurrency(DtoConverter.toCurrencyDto(reverseRate.get().getBaseCurrency()))
+                    .targetCurrency(DtoConverter.toCurrencyDto(reverseRate.get().getTargetCurrency()))
                     .rate(exchangedAmount)
-                    .build();
-
-
+                    .build());
         }
+        return Optional.empty();
+    }
+
+    private Optional<ExchangeRateDto> findCrossRate(String from, String to, BigDecimal amount) {
         List<ExchangeRate> allRates = exchangeRateRepository.findALL();
         for (ExchangeRate intermediateRate : allRates) {
             if (intermediateRate.getBaseCurrency().getCode().equals(from)) {
                 Optional<ExchangeRate> crossRates = exchangeRateRepository.findByBaseCurrencyCodeAndTargetCurrencyCode(
-                        intermediateRate.getBaseCurrency().getCode(),
-                        to);
+                        intermediateRate.getBaseCurrency().getCode(), to);
                 if (crossRates.isPresent()) {
                     BigDecimal rate = intermediateRate.getRate().multiply(crossRates.get().getRate());
-                    BigDecimal exchangedAmount = amount.multiply(rate);
-                    return ExchangeRateDto.builder()
-                            .baseCurrency(DtoConverter.toCurrencyDto(baseCurrency))
-                            .targetCurrency(DtoConverter.toCurrencyDto(targetCurrency))
+                    BigDecimal exchangedAmount = amount.multiply(rate).setScale(2, RoundingMode.HALF_UP);
+                    return Optional.of(ExchangeRateDto.builder()
+                            .baseCurrency(DtoConverter.toCurrencyDto(intermediateRate.getBaseCurrency()))
+                            .targetCurrency(DtoConverter.toCurrencyDto(crossRates.get().getTargetCurrency()))
                             .rate(exchangedAmount)
-                            .build();
+                            .build());
                 }
-
             }
         }
-
-        throw new NotFoundException("Exchange rate not found for the given currencies");
-
+        return Optional.empty();
     }
 }
