@@ -8,5 +8,5 @@ public interface CurrencyService {
     List<CurrencyDto> getAllCurrencies();
     CurrencyDto getCurrencyByCode(String code);
     CurrencyDto createCurrency(CurrencyDto currencyDto);
-    void updateCurrency(CurrencyDto currencyDto);
+    CurrencyDto updateCurrency(CurrencyDto currencyDto);
 }

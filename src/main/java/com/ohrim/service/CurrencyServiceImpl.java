@@ -40,9 +40,10 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
-    public void updateCurrency(CurrencyDto currencyDto) {
+    public CurrencyDto updateCurrency(CurrencyDto currencyDto) {
         Currency currency = DtoConverter.toCurrencyEntity(currencyDto);
         currencyRepository.update(currency);
+        return DtoConverter.toCurrencyDto(currency);
 
     }
 }
