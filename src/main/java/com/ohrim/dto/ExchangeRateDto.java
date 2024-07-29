@@ -15,4 +15,6 @@ public class ExchangeRateDto {
     BigDecimal rate;
 
 
+
+
 }
