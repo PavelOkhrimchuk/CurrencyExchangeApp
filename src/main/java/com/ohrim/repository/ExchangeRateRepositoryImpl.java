@@ -111,6 +111,31 @@ public class ExchangeRateRepositoryImpl implements ExchangeRateRepository {
 
     }
 
+    @Override
+    @SneakyThrows
+    public Optional<ExchangeRate> findByBaseCurrencyCodeAndTargetCurrencyCode(String baseCurrencyCode, String targetCurrencyCode) {
+        String query = "SELECT er.id, er.rate, " +
+                "bc.id as base_currency_id, bc.code as base_currency_code, bc.fullName as base_currency_fullName, bc.sign as base_currency_sign, " +
+                "tc.id as target_currency_id, tc.code as target_currency_code, tc.fullName as target_currency_fullName, tc.sign as target_currency_sign " +
+                "FROM ExchangeRates er " +
+                "JOIN Currencies bc ON er.basecurrencyid = bc.id " +
+                "JOIN Currencies tc ON er.targetcurrencyid = tc.id " +
+                "WHERE bc.code = ? AND tc.code = ?";
+        ExchangeRate exchangeRate = null;
+
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, baseCurrencyCode);
+            statement.setString(2, targetCurrencyCode);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    exchangeRate = buildExchangeRate(resultSet);
+                }
+            }
+        }
+        return Optional.ofNullable(exchangeRate);
+    }
+
     private ExchangeRate buildExchangeRate(ResultSet resultSet) throws SQLException {
         return new ExchangeRate(
                 resultSet.getInt("id"),
@@ -129,4 +154,6 @@ public class ExchangeRateRepositoryImpl implements ExchangeRateRepository {
                 resultSet.getBigDecimal("rate")
         );
     }
+
+
 }
