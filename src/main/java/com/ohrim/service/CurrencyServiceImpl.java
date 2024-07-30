@@ -1,6 +1,7 @@
 package com.ohrim.service;
 
 import com.ohrim.dto.CurrencyDto;
+import com.ohrim.exception.ConflictException;
 import com.ohrim.exception.NotFoundException;
 import com.ohrim.mapper.DtoConverter;
 import com.ohrim.model.Currency;
@@ -34,6 +35,9 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public CurrencyDto createCurrency(CurrencyDto currencyDto) {
+        if (currencyRepository.findByCode(currencyDto.getCode()).isPresent()) {
+            throw new ConflictException("Currency with code " + currencyDto.getCode() + " already exists.");
+        }
         Currency currency = DtoConverter.toCurrencyEntity(currencyDto);
         Currency savedCurrency = currencyRepository.save(currency);
         return DtoConverter.toCurrencyDto(savedCurrency);

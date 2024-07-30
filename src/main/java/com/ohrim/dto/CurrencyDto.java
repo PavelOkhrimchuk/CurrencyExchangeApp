@@ -11,9 +11,13 @@ import lombok.*;
 public class CurrencyDto {
 
     private Integer id;
-    private String name;
+    private String fullName;
     private String code;
     private String sign;
+
+
+
+
 
 
 }
