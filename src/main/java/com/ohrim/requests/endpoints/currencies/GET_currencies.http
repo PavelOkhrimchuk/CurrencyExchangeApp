@@ -1,0 +1,3 @@
+GET http://localhost:8080/CurrencyExchangeApp-1.0-SNAPSHOT/currencies
+
+
