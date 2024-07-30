@@ -16,13 +16,23 @@ public class ReceiveCurrencyServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String currencyCode = req.getPathInfo().substring(1);  // Получаем код валюты из URL
+        String currencyCode = req.getPathInfo() != null ? req.getPathInfo().substring(1) : null;
+
+        if (currencyCode == null || currencyCode.isEmpty()) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Currency code is missing from the URL");
+            return;
+        }
+
         try {
             CurrencyDto currency = currencyService.getCurrencyByCode(currencyCode);
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().write(objectMapper.writeValueAsString(currency));
-            resp.setStatus(HttpServletResponse.SC_OK);
+            if (currency != null) {
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                resp.getWriter().write(objectMapper.writeValueAsString(currency));
+                resp.setStatus(HttpServletResponse.SC_OK);
+            } else {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Currency not found");
+            }
         } catch (NotFoundException e) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, e.getMessage());
         } catch (Exception e) {
