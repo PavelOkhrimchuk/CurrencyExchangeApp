@@ -1,0 +1,4 @@
+POST http://localhost:8080/CurrencyExchangeApp-1.0-SNAPSHOT/addExchangeRate
+Content-Type: application/x-www-form-urlencoded
+
+baseCurrencyCode=USD&targetCurrencyCode=GBP&rate=0.75

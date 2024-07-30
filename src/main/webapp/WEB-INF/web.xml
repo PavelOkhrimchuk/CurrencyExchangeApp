@@ -58,4 +58,16 @@
 
 
 
+    <servlet>
+        <servlet-name>AddExchangeRateServlet</servlet-name>
+        <servlet-class>com.ohrim.servlet.exchange.AddExchangeRateServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddExchangeRateServlet</servlet-name>
+        <url-pattern>/addExchangeRate</url-pattern>
+    </servlet-mapping>
+
+
+
 </web-app>
