@@ -1,15 +1,19 @@
 package com.ohrim.dto;
 
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
-@Value
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class CurrencyDto {
 
-    Integer id;
-    String name;
-    String code;
-    String sign;
+    private Integer id;
+    private String name;
+    private String code;
+    private String sign;
+
+
 }

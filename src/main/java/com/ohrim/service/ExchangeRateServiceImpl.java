@@ -15,11 +15,9 @@ import java.util.stream.Collectors;
 
 public class ExchangeRateServiceImpl implements ExchangeRateService {
 
-    private final CurrencyRepository currencyRepository;
     private final ExchangeRateRepository exchangeRateRepository;
 
     public ExchangeRateServiceImpl(CurrencyRepository currencyRepository, ExchangeRateRepository exchangeRateRepository) {
-        this.currencyRepository = currencyRepository;
         this.exchangeRateRepository = exchangeRateRepository;
     }
 

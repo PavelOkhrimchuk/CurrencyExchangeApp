@@ -1,18 +1,22 @@
 package com.ohrim.dto;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Value
+@Getter
+@Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ExchangeRateDto {
 
-    Integer id;
-    CurrencyDto baseCurrency;
-    CurrencyDto targetCurrency;
-    BigDecimal rate;
+    private Integer id;
+    private CurrencyDto baseCurrency;
+    private CurrencyDto targetCurrency;
+    private BigDecimal rate;
+
+
 
 
 
