@@ -19,7 +19,7 @@ public class AddCurrencyServlet extends BaseServlet {
         String code = req.getParameter("code");
         String sign = req.getParameter("sign");
 
-        // Проверка на null или пустые строки
+
         if (fullName == null || fullName.trim().isEmpty() ||
                 code == null || code.trim().isEmpty() ||
                 sign == null || sign.trim().isEmpty()) {

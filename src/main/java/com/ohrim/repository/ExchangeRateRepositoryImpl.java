@@ -75,7 +75,7 @@ public class ExchangeRateRepositoryImpl implements ExchangeRateRepository {
     @SneakyThrows
     public void update(ExchangeRate exchangeRate) {
 
-        String query = "UPDATE ExchangeRates SET rate = ?, base_currency_id = ?, target_currency_id = ? WHERE id = ?";
+        String query = "UPDATE ExchangeRates SET rate = ?, basecurrencyid = ?, targetcurrencyid = ? WHERE id = ?";
 
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -92,7 +92,7 @@ public class ExchangeRateRepositoryImpl implements ExchangeRateRepository {
     @SneakyThrows
     public ExchangeRate save(ExchangeRate exchangeRate) {
 
-        String query = "INSERT INTO ExchangeRates (rate, base_currency_id, target_currency_id) VALUES (?, ?, ?)";
+        String query = "INSERT INTO ExchangeRates (rate, basecurrencyid, targetcurrencyid) VALUES (?, ?, ?)";
 
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {

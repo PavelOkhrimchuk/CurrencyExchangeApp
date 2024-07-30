@@ -30,12 +30,12 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     @Override
     public ExchangeRateDto getExchangeRate(String baseCurrencyCode, String targetCurrencyCode) {
         return exchangeRateRepository.findByBaseCurrencyCodeAndTargetCurrencyCode(baseCurrencyCode, targetCurrencyCode)
-                .map(DtoConverter::toExchangeRateDto)
-                .orElseThrow(() -> new NotFoundException("Exchange rate not found"));
+                .map(DtoConverter::toExchangeRateDto).orElse(null);
     }
 
     @Override
     public ExchangeRateDto createExchangeRate(ExchangeRateDto exchangeRateDto) {
+
         ExchangeRate exchangeRate = DtoConverter.toExchangeRateEntity(exchangeRateDto);
         ExchangeRate savedExchangeRate = exchangeRateRepository.save(exchangeRate);
         return DtoConverter.toExchangeRateDto(savedExchangeRate);

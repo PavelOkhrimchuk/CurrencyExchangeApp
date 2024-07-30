@@ -2,7 +2,6 @@ package com.ohrim.service;
 
 import com.ohrim.dto.CurrencyDto;
 import com.ohrim.exception.ConflictException;
-import com.ohrim.exception.NotFoundException;
 import com.ohrim.mapper.DtoConverter;
 import com.ohrim.model.Currency;
 import com.ohrim.repository.CurrencyRepository;
@@ -29,8 +28,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public CurrencyDto getCurrencyByCode(String code) {
         return currencyRepository.findByCode(code)
-                .map(DtoConverter::toCurrencyDto)
-                .orElseThrow(() -> new NotFoundException("Currency not found"));
+                .map(DtoConverter::toCurrencyDto).orElse(null);
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.ohrim.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -11,6 +8,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class ExchangeRate {
     private int id;
     private Currency baseCurrency;
