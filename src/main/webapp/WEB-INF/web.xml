@@ -36,5 +36,16 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>GetExchangeRatesServlet</servlet-name>
+        <servlet-class>com.ohrim.servlet.exchange.GetExchangeRatesServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetExchangeRatesServlet</servlet-name>
+        <url-pattern>/exchangeRates</url-pattern>
+    </servlet-mapping>
+
+
 
 </web-app>

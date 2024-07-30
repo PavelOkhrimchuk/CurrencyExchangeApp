@@ -4,7 +4,6 @@ import com.ohrim.dto.ExchangeRateDto;
 import com.ohrim.exception.NotFoundException;
 import com.ohrim.mapper.DtoConverter;
 import com.ohrim.model.ExchangeRate;
-import com.ohrim.repository.CurrencyRepository;
 import com.ohrim.repository.ExchangeRateRepository;
 
 import java.math.BigDecimal;
@@ -17,7 +16,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     private final ExchangeRateRepository exchangeRateRepository;
 
-    public ExchangeRateServiceImpl(CurrencyRepository currencyRepository, ExchangeRateRepository exchangeRateRepository) {
+    public ExchangeRateServiceImpl(ExchangeRateRepository exchangeRateRepository) {
         this.exchangeRateRepository = exchangeRateRepository;
     }
 
