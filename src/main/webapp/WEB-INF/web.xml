@@ -25,6 +25,16 @@
         <url-pattern>/currency/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddCurrencyServlet</servlet-name>
+        <servlet-class>com.ohrim.servlet.currency.AddCurrencyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCurrencyServlet</servlet-name>
+        <url-pattern>/addCurrency</url-pattern>
+    </servlet-mapping>
+
 
 
 </web-app>

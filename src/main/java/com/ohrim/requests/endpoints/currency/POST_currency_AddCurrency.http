@@ -1,0 +1,4 @@
+POST http://localhost:8080/CurrencyExchangeApp-1.0-SNAPSHOT/addCurrency
+Content-Type: application/x-www-form-urlencoded
+
+fullName=Belarusian ruble&code=BYN&sign=Br
