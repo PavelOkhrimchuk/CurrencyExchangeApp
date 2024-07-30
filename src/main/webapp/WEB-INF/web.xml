@@ -46,6 +46,16 @@
         <url-pattern>/exchangeRates</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ReceiveExchangeRateServlet</servlet-name>
+        <servlet-class>com.ohrim.servlet.exchange.ReceiveExchangeRateServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ReceiveExchangeRateServlet</servlet-name>
+        <url-pattern>/exchangeRate/*</url-pattern>
+    </servlet-mapping>
+
 
 
 </web-app>
