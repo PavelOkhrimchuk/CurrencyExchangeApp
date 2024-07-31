@@ -1,0 +1,29 @@
+version: "3.9"  # Обновлено до актуальной версии
+
+services:
+  app:
+    build: .
+    environment:
+      DB_URL: jdbc:postgresql://database:5432/postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: ohrim
+    ports:
+      - "8081:8080"  # Изменен внешний порт с 8080 на 8081
+    depends_on:
+      - database
+
+  database:
+    image: postgres:14.1
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ohrim
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src/main/resources/db:/docker-entrypoint-initdb.d/
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:  # Определение volume
