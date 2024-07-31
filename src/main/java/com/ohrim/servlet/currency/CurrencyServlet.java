@@ -1,7 +1,6 @@
 package com.ohrim.servlet.currency;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ohrim.dto.CurrencyDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class CurrencyServlet extends BaseServlet {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+
 
 
     @Override
@@ -23,7 +22,7 @@ public class CurrencyServlet extends BaseServlet {
             resp.getWriter().write(objectMapper.writeValueAsString(currencies));
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to retrieve currencies: " + e.getMessage());
+            sendJsonError(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to retrieve currencies: " + e.getMessage());
         }
     }
 

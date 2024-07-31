@@ -1,6 +1,5 @@
 package com.ohrim.servlet.exchange;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ohrim.dto.ExchangeRateDto;
 import com.ohrim.exception.NotFoundException;
 import jakarta.servlet.ServletException;
@@ -12,7 +11,7 @@ import java.math.BigDecimal;
 
 public class ExchangeServlet extends ExchangeBaseServlet {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +22,7 @@ public class ExchangeServlet extends ExchangeBaseServlet {
         if (from == null || from.trim().isEmpty() ||
                 to == null || to.trim().isEmpty() ||
                 amountParam == null || amountParam.trim().isEmpty()) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
+            sendJsonError(resp,HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
             return;
         }
 
@@ -36,11 +35,11 @@ public class ExchangeServlet extends ExchangeBaseServlet {
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(objectMapper.writeValueAsString(result));
         } catch (NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid amount format");
+           sendJsonError(resp,HttpServletResponse.SC_BAD_REQUEST, "Invalid amount format");
         } catch (NotFoundException e) {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Exchange rate not found for the provided currencies.");
+           sendJsonError(resp,HttpServletResponse.SC_NOT_FOUND, "Exchange rate not found for the provided currencies.");
         } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
+           sendJsonError(resp,HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
         }
     }
 }

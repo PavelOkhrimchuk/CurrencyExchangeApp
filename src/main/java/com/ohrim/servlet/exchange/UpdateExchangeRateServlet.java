@@ -1,6 +1,5 @@
 package com.ohrim.servlet.exchange;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ohrim.dto.CurrencyDto;
 import com.ohrim.dto.ExchangeRateDto;
 import com.ohrim.exception.NotFoundException;
@@ -13,7 +12,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 public class UpdateExchangeRateServlet extends ExchangeBaseServlet{
-    private final ObjectMapper objectMapper = new ObjectMapper();
+
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +27,7 @@ public class UpdateExchangeRateServlet extends ExchangeBaseServlet{
         String pathInfo = req.getPathInfo() != null ? req.getPathInfo().substring(1) : null;
 
         if (pathInfo == null || pathInfo.length() != 6) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Currency pair is missing or incorrect in the URL");
+            sendJsonError(resp,HttpServletResponse.SC_BAD_REQUEST, "Currency pair is missing or incorrect in the URL");
             return;
         }
 
@@ -55,7 +54,7 @@ public class UpdateExchangeRateServlet extends ExchangeBaseServlet{
         }
 
         if (rateParam == null || rateParam.trim().isEmpty()) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required form field: rate");
+            sendJsonError(resp,HttpServletResponse.SC_BAD_REQUEST, "Missing required form field: rate");
             return;
         }
 
@@ -66,7 +65,7 @@ public class UpdateExchangeRateServlet extends ExchangeBaseServlet{
             CurrencyDto targetCurrencyDto = currencyService.getCurrencyByCode(targetCurrencyCode);
 
             if (baseCurrencyDto == null || targetCurrencyDto == null) {
-                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Currency pair not found");
+               sendJsonError(resp,HttpServletResponse.SC_NOT_FOUND, "Currency pair not found");
                 return;
             }
 
@@ -79,11 +78,11 @@ public class UpdateExchangeRateServlet extends ExchangeBaseServlet{
             resp.getWriter().write(objectMapper.writeValueAsString(result));
 
         } catch (NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid rate format");
+            sendJsonError(resp,HttpServletResponse.SC_BAD_REQUEST, "Invalid rate format");
         } catch (NotFoundException e) {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Exchange rate not found for the given currency pair");
+            sendJsonError(resp,HttpServletResponse.SC_NOT_FOUND, "Exchange rate not found for the given currency pair");
         } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
+           sendJsonError(resp,HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
         }
     }
 }

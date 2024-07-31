@@ -1,6 +1,5 @@
 package com.ohrim.servlet.currency;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ohrim.dto.CurrencyDto;
 import com.ohrim.exception.ConflictException;
 import jakarta.servlet.ServletException;
@@ -11,7 +10,7 @@ import java.io.IOException;
 
 public class AddCurrencyServlet extends BaseServlet {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +22,7 @@ public class AddCurrencyServlet extends BaseServlet {
         if (fullName == null || fullName.trim().isEmpty() ||
                 code == null || code.trim().isEmpty() ||
                 sign == null || sign.trim().isEmpty()) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required form fields");
+            sendJsonError(resp, HttpServletResponse.SC_BAD_REQUEST, "Missing required form fields");
             return;
         }
 
@@ -33,9 +32,9 @@ public class AddCurrencyServlet extends BaseServlet {
             resp.setStatus(HttpServletResponse.SC_CREATED);
             resp.getWriter().write(objectMapper.writeValueAsString(addedCurrency));
         } catch (ConflictException e) {
-            resp.sendError(HttpServletResponse.SC_CONFLICT, "Currency with this code already exists");
+            sendJsonError(resp, HttpServletResponse.SC_CONFLICT, "Currency with this code already exists");
         } catch (Exception e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
+            sendJsonError(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
         }
     }
 
