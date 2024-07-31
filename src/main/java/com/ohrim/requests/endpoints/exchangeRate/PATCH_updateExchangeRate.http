@@ -1,0 +1,4 @@
+PATCH http://localhost:8080/CurrencyExchangeApp-1.0-SNAPSHOT/updateExchangeRate/USDEUR
+Content-Type: application/x-www-form-urlencoded
+
+rate=0.86

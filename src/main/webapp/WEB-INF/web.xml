@@ -69,5 +69,17 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>UpdateExchangeRateServlet</servlet-name>
+        <servlet-class>com.ohrim.servlet.exchange.UpdateExchangeRateServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateExchangeRateServlet</servlet-name>
+        <url-pattern>/updateExchangeRate/*</url-pattern>
+    </servlet-mapping>
+
+
+
 
 </web-app>
