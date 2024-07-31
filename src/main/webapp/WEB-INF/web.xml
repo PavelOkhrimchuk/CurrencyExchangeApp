@@ -80,6 +80,16 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>ExchangeServlet</servlet-name>
+        <servlet-class>com.ohrim.servlet.exchange.ExchangeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExchangeServlet</servlet-name>
+        <url-pattern>/exchange</url-pattern>
+    </servlet-mapping>
+
+
 
 
 </web-app>
