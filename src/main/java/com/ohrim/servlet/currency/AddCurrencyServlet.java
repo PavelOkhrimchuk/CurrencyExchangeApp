@@ -30,8 +30,6 @@ public class AddCurrencyServlet extends BaseServlet {
         try {
             CurrencyDto newCurrency = new CurrencyDto(null, fullName, code, sign);
             CurrencyDto addedCurrency = currencyService.createCurrency(newCurrency);
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
             resp.setStatus(HttpServletResponse.SC_CREATED);
             resp.getWriter().write(objectMapper.writeValueAsString(addedCurrency));
         } catch (ConflictException e) {

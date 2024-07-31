@@ -18,8 +18,6 @@ public class GetExchangeRatesServlet extends ExchangeBaseServlet {
 
         try {
             List<ExchangeRateDto> exchangeRates = exchangeRateService.getAllExchangeRates();
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(objectMapper.writeValueAsString(exchangeRates));
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {

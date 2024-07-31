@@ -32,10 +32,10 @@ public class ReceiveExchangeRateServlet extends ExchangeBaseServlet {
         try {
             ExchangeRateDto exchangeRate = exchangeRateService.getExchangeRate(baseCurrencyCode, targetCurrencyCode);
             if (exchangeRate != null) {
-                resp.setContentType("application/json");
-                resp.setCharacterEncoding("UTF-8");
                 resp.getWriter().write(objectMapper.writeValueAsString(exchangeRate));
                 resp.setStatus(HttpServletResponse.SC_OK);
+            } else {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Exchange rate not found for the given currency pair");
             }
         } catch (NotFoundException e) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Exchange rate not found for the given currency pair");

@@ -26,8 +26,6 @@ public class ReceiveCurrencyServlet extends BaseServlet {
         try {
             CurrencyDto currency = currencyService.getCurrencyByCode(currencyCode);
             if (currency != null) {
-                resp.setContentType("application/json");
-                resp.setCharacterEncoding("UTF-8");
                 resp.getWriter().write(objectMapper.writeValueAsString(currency));
                 resp.setStatus(HttpServletResponse.SC_OK);
             } else {

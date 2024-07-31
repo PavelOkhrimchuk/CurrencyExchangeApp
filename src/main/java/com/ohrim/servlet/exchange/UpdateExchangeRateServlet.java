@@ -74,8 +74,7 @@ public class UpdateExchangeRateServlet extends ExchangeBaseServlet{
             ExchangeRateDto updatedExchangeRate = new ExchangeRateDto(existingRate.getId(), baseCurrencyDto, targetCurrencyDto, rate);
             ExchangeRateDto result = exchangeRateService.updateExchangeRate(updatedExchangeRate);
 
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
+
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(objectMapper.writeValueAsString(result));
 

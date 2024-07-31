@@ -32,8 +32,7 @@ public class ExchangeServlet extends ExchangeBaseServlet {
             ExchangeRateDto result = exchangeRateService.exchangeCurrency(from, to, amount);
 
 
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
+
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(objectMapper.writeValueAsString(result));
         } catch (NumberFormatException e) {

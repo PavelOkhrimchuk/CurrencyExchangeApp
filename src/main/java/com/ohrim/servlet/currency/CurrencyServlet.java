@@ -20,8 +20,6 @@ public class CurrencyServlet extends BaseServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             List<CurrencyDto> currencies = currencyService.getAllCurrencies();
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(objectMapper.writeValueAsString(currencies));
             resp.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
