@@ -1,5 +1,6 @@
 package com.ohrim.repository;
 
+import com.ohrim.exception.ConflictException;
 import com.ohrim.model.Currency;
 import com.ohrim.util.DatabaseUtil;
 import lombok.SneakyThrows;
@@ -83,13 +84,18 @@ public class CurrencyRepositoryImpl implements CurrencyRepository{
     @SneakyThrows
     public Currency save(Currency currency) {
         String query = "INSERT INTO currencies (code, fullname, sign) VALUES (?,?,?)";
+
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
 
             statement.setString(1, currency.getCode());
             statement.setString(2, currency.getFullName());
             statement.setString(3, currency.getSign());
+
+
             statement.executeUpdate();
+
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -97,6 +103,13 @@ public class CurrencyRepositoryImpl implements CurrencyRepository{
                 }
             }
 
+        } catch (SQLException e) {
+
+            if ("23505".equals(e.getSQLState())) {
+                throw new ConflictException("Currency with this code already exists");
+            } else {
+                throw new RuntimeException("Database error: " + e.getMessage(), e);
+            }
         }
 
         return currency;
