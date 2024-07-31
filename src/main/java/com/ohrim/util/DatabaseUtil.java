@@ -1,40 +1,40 @@
 package com.ohrim.util;
 
-import lombok.experimental.UtilityClass;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@UtilityClass
 public class DatabaseUtil {
 
 
-    private static final String URL_KEY = "db.url";
-    private static final String USER_KEY = "db.user";
-    private static final String PASSWORD_KEY = "db.password";
-    private static final String DRIVER_KEY = "db.driver";
-
+    private static final HikariDataSource ds;
 
     static {
+        HikariConfig config = new HikariConfig();
         try {
-            loadDriver();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to load database driver.", e);
+            PropertiesUtil.loadProperties("hikari.properties");
+            config.setJdbcUrl(PropertiesUtil.get("jdbcUrl"));
+            config.setUsername(PropertiesUtil.get("username"));
+            config.setPassword(PropertiesUtil.get("password"));
+            config.setDriverClassName(PropertiesUtil.get("driverClassName"));
+            config.addDataSourceProperty("cachePrepStmts", PropertiesUtil.get("cachePrepStmts"));
+            config.addDataSourceProperty("prepStmtCacheSize", PropertiesUtil.get("prepStmtCacheSize"));
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", PropertiesUtil.get("prepStmtCacheSqlLimit"));
+
+            ds = new HikariDataSource(config);
+
+        } catch (IOException ex) {
+            throw new RuntimeException("Failed to load database properties", ex);
         }
     }
 
-    private static void loadDriver() throws ClassNotFoundException {
-        Class.forName(PropertiesUtil.get(DRIVER_KEY));
-    }
-
+    private DatabaseUtil() {}
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                PropertiesUtil.get(URL_KEY),
-                PropertiesUtil.get(USER_KEY),
-                PropertiesUtil.get(PASSWORD_KEY));
+        return ds.getConnection();
     }
 
 

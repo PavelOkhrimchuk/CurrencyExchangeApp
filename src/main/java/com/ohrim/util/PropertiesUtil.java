@@ -9,15 +9,15 @@ public class PropertiesUtil {
 
     static {
         try {
-            loadProperties();
+            loadProperties("hikari.properties");
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to load properties file.", e);
         }
     }
 
-    private static void loadProperties() throws IOException {
-        try (InputStream inputStream = PropertiesUtil.class.getClassLoader().getResourceAsStream("application.properties")) {
+    static void loadProperties(String fileName) throws IOException {
+        try (InputStream inputStream = PropertiesUtil.class.getClassLoader().getResourceAsStream(fileName)) {
             if (inputStream != null) {
                 PROPERTIES.load(inputStream);
             } else {
