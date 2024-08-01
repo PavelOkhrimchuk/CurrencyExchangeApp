@@ -20,6 +20,8 @@ dependencies {
 
     implementation 'com.zaxxer:HikariCP:5.0.1'
 
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
+
 
 
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.3'

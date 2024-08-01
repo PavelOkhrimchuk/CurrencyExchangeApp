@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.math.RoundingMode;
 
 public class ReceiveExchangeRateServlet extends ExchangeBaseServlet {
 
@@ -31,6 +32,7 @@ public class ReceiveExchangeRateServlet extends ExchangeBaseServlet {
         try {
             ExchangeRateDto exchangeRate = exchangeRateService.getExchangeRate(baseCurrencyCode, targetCurrencyCode);
             if (exchangeRate != null) {
+                exchangeRate.setRate(exchangeRate.getRate().setScale(2, RoundingMode.HALF_UP));
                 resp.getWriter().write(objectMapper.writeValueAsString(exchangeRate));
                 resp.setStatus(HttpServletResponse.SC_OK);
             } else {
