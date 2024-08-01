@@ -23,27 +23,31 @@ Currency Exchange App is a RESTful service for managing currencies and exchange 
 
 ### Clone the repository
 
-```sh
 git clone https://github.com/yourusername/currency-exchange-app.git
 cd currency-exchange-app
 
-Build the Docker containers
+
+### Build the Docker containers
+
 docker-compose build
 
-Running the Application
-After building the containers, start the application:
+
+### Running the Application
+
+После сборки контейнеров запустите приложение:
+
 docker-compose up
 
 
+Приложение будет доступно по адресу: [http://localhost:8081/CurrencyExchangeApp-1.0-SNAPSHOT/](http://localhost:8081/CurrencyExchangeApp-1.0-SNAPSHOT/.
 
-The application will be available at http://localhost:8081/CurrencyExchangeApp-1.0-SNAPSHOT/.
+## API Endpoints
 
-API Endpoints
-You can test the API endpoints using a tool like Postman or by sending HTTP requests directly. Below are the available endpoints:
+Вы можете протестировать API-эндпоинты, используя такие инструменты, как Postman, или отправляя HTTP-запросы напрямую. Ниже приведены доступные эндпоинты:
 
-GET /currencies
-Retrieve a list of all available currencies.
+### GET /currencies
 
+Получить список всех доступных валют.
 
 [
   {
@@ -77,9 +81,11 @@ Retrieve a list of all available currencies.
     "sign": "₽"
   }
 ]
-GET /currency/EUR
-Retrieve details for a specific currency.
 
+
+### GET /currency/EUR
+
+Получить детали для конкретной валюты.
 
 {
   "id": 3,
@@ -87,9 +93,11 @@ Retrieve details for a specific currency.
   "code": "EUR",
   "sign": "€"
 }
-POST /currencies
-Add a new currency.
 
+
+### POST /currencies
+
+Добавить новую валюту.
 
 {
   "id": 15,
@@ -97,9 +105,11 @@ Add a new currency.
   "code": "RON",
   "sign": "L"
 }
-GET /exchangeRates
-Retrieve exchange rates between currencies.
 
+
+### GET /exchangeRates
+
+Получить курсы обмена между валютами.
 
 [
   {
@@ -151,9 +161,11 @@ Retrieve exchange rates between currencies.
     "rate": 0.006800
   }
 ]
-GET /exchangeRate/USDRUB
-Retrieve the exchange rate for USD to RUB.
 
+
+### GET /exchangeRate/USDRUB
+
+Получить курс обмена для USD на RUB.
 
 {
   "id": 2,
@@ -171,8 +183,11 @@ Retrieve the exchange rate for USD to RUB.
   },
   "rate": 0.86
 }
-POST /exchangeRates
-Add a new exchange rate.
+
+
+### POST /exchangeRates
+
+Добавить новый курс обмена.
 
 {
   "id": 11,
@@ -190,9 +205,11 @@ Add a new exchange rate.
   },
   "rate": 4.61
 }
-PATCH /exchangeRate/USDRUB
-Update the exchange rate for USD to RUB.
 
+
+### PATCH /exchangeRate/USDRUB
+
+Обновить курс обмена для USD на RUB.
 
 {
   "id": 2,
@@ -210,9 +227,11 @@ Update the exchange rate for USD to RUB.
   },
   "rate": 0.86
 }
-GET /exchange?from=BASE_CURRENCY_CODE&to=TARGET_CURRENCY_CODE&amount=$AMOUNT
-Convert an amount from one currency to another.
 
+
+### GET /exchange?from=BASE_CURRENCY_CODE&to=TARGET_CURRENCY_CODE&amount=$AMOUNT
+
+Конвертировать сумму из одной валюты в другую.
 
 {
   "baseCurrency": {
