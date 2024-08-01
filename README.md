@@ -2,7 +2,6 @@
 
 Currency Exchange App is a RESTful service for managing currencies and exchange rates. The service allows for the creation, retrieval, and updating of currencies and exchange rates, as well as performing currency exchanges.
 
-
 ## Technologies Used
 
 - **Java**: Core language for the application
@@ -28,11 +27,21 @@ Currency Exchange App is a RESTful service for managing currencies and exchange 
 git clone https://github.com/yourusername/currency-exchange-app.git
 cd currency-exchange-app
 
+Build the Docker containers
+docker-compose build
 
-## API Endpoints
+Running the Application
+After building the containers, start the application:
+docker-compose up
 
-### GET /currencies
 
+
+The application will be available at http://localhost:8081/CurrencyExchangeApp-1.0-SNAPSHOT/.
+
+API Endpoints
+You can test the API endpoints using a tool like Postman or by sending HTTP requests directly. Below are the available endpoints:
+
+GET /currencies
 Retrieve a list of all available currencies.
 
 
@@ -68,9 +77,7 @@ Retrieve a list of all available currencies.
     "sign": "₽"
   }
 ]
-
-
-### GET /currency/EUR
+GET /currency/EUR
 Retrieve details for a specific currency.
 
 
@@ -80,8 +87,7 @@ Retrieve details for a specific currency.
   "code": "EUR",
   "sign": "€"
 }
-
-### POST /currencies
+POST /currencies
 Add a new currency.
 
 
@@ -91,9 +97,7 @@ Add a new currency.
   "code": "RON",
   "sign": "L"
 }
-
-
-### GET /exchangeRates
+GET /exchangeRates
 Retrieve exchange rates between currencies.
 
 
@@ -147,8 +151,7 @@ Retrieve exchange rates between currencies.
     "rate": 0.006800
   }
 ]
-
-### GET /exchangeRate/USDRUB
+GET /exchangeRate/USDRUB
 Retrieve the exchange rate for USD to RUB.
 
 
@@ -168,10 +171,8 @@ Retrieve the exchange rate for USD to RUB.
   },
   "rate": 0.86
 }
-
-### POST /exchangeRates
+POST /exchangeRates
 Add a new exchange rate.
-
 
 {
   "id": 11,
@@ -189,9 +190,9 @@ Add a new exchange rate.
   },
   "rate": 4.61
 }
-
-### PATCH /exchangeRate/USDRUB
+PATCH /exchangeRate/USDRUB
 Update the exchange rate for USD to RUB.
+
 
 {
   "id": 2,
@@ -209,9 +210,9 @@ Update the exchange rate for USD to RUB.
   },
   "rate": 0.86
 }
-
-### GET /exchange?from=BASE_CURRENCY_CODE&to=TARGET_CURRENCY_CODE&amount=$AMOUNT
+GET /exchange?from=BASE_CURRENCY_CODE&to=TARGET_CURRENCY_CODE&amount=$AMOUNT
 Convert an amount from one currency to another.
+
 
 {
   "baseCurrency": {
