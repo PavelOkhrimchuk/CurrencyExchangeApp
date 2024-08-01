@@ -27,3 +27,205 @@ Currency Exchange App is a RESTful service for managing currencies and exchange 
 ```sh
 git clone https://github.com/yourusername/currency-exchange-app.git
 cd currency-exchange-app
+
+
+## API Endpoints
+
+### GET /currencies
+
+Retrieve a list of all available currencies.
+
+
+[
+  {
+    "id": 1,
+    "fullName": "Australian Dollar",
+    "code": "AUD",
+    "sign": "A$"
+  },
+  {
+    "id": 3,
+    "fullName": "Euro",
+    "code": "EUR",
+    "sign": "€"
+  },
+  {
+    "id": 4,
+    "fullName": "Japanese Yen",
+    "code": "JPY",
+    "sign": "¥"
+  },
+  {
+    "id": 5,
+    "fullName": "British Pound",
+    "code": "GBP",
+    "sign": "£"
+  },
+  {
+    "id": 6,
+    "fullName": "Russian Ruble",
+    "code": "RUB",
+    "sign": "₽"
+  }
+]
+
+
+### GET /currency/EUR
+Retrieve details for a specific currency.
+
+
+{
+  "id": 3,
+  "fullName": "Euro",
+  "code": "EUR",
+  "sign": "€"
+}
+
+### POST /currencies
+Add a new currency.
+
+
+{
+  "id": 15,
+  "fullName": "Romanian leu",
+  "code": "RON",
+  "sign": "L"
+}
+
+
+### GET /exchangeRates
+Retrieve exchange rates between currencies.
+
+
+[
+  {
+    "id": 1,
+    "baseCurrency": {
+      "id": 1,
+      "fullName": "Australian Dollar",
+      "code": "AUD",
+      "sign": "A$"
+    },
+    "targetCurrency": {
+      "id": 2,
+      "fullName": "United States Dollar",
+      "code": "USD",
+      "sign": "$"
+    },
+    "rate": 0.730000
+  },
+  {
+    "id": 3,
+    "baseCurrency": {
+      "id": 3,
+      "fullName": "Euro",
+      "code": "EUR",
+      "sign": "€"
+    },
+    "targetCurrency": {
+      "id": 4,
+      "fullName": "Japanese Yen",
+      "code": "JPY",
+      "sign": "¥"
+    },
+    "rate": 130.170000
+  },
+  {
+    "id": 4,
+    "baseCurrency": {
+      "id": 4,
+      "fullName": "Japanese Yen",
+      "code": "JPY",
+      "sign": "¥"
+    },
+    "targetCurrency": {
+      "id": 5,
+      "fullName": "British Pound",
+      "code": "GBP",
+      "sign": "£"
+    },
+    "rate": 0.006800
+  }
+]
+
+### GET /exchangeRate/USDRUB
+Retrieve the exchange rate for USD to RUB.
+
+
+{
+  "id": 2,
+  "baseCurrency": {
+    "id": 2,
+    "fullName": "United States Dollar",
+    "code": "USD",
+    "sign": "$"
+  },
+  "targetCurrency": {
+    "id": 3,
+    "fullName": "Euro",
+    "code": "EUR",
+    "sign": "€"
+  },
+  "rate": 0.86
+}
+
+### POST /exchangeRates
+Add a new exchange rate.
+
+
+{
+  "id": 11,
+  "baseCurrency": {
+    "id": 2,
+    "fullName": "United States Dollar",
+    "code": "USD",
+    "sign": "$"
+  },
+  "targetCurrency": {
+    "id": 15,
+    "fullName": "Romanian leu",
+    "code": "RON",
+    "sign": "L"
+  },
+  "rate": 4.61
+}
+
+### PATCH /exchangeRate/USDRUB
+Update the exchange rate for USD to RUB.
+
+{
+  "id": 2,
+  "baseCurrency": {
+    "id": 2,
+    "fullName": "Updated United States Dollar",
+    "code": "USD",
+    "sign": "$"
+  },
+  "targetCurrency": {
+    "id": 3,
+    "fullName": "Euro",
+    "code": "EUR",
+    "sign": "€"
+  },
+  "rate": 0.86
+}
+
+### GET /exchange?from=BASE_CURRENCY_CODE&to=TARGET_CURRENCY_CODE&amount=$AMOUNT
+Convert an amount from one currency to another.
+
+{
+  "baseCurrency": {
+    "id": 2,
+    "fullName": "Updated United States Dollar",
+    "code": "USD",
+    "sign": "$"
+  },
+  "targetCurrency": {
+    "id": 3,
+    "fullName": "Euro",
+    "code": "EUR",
+    "sign": "€"
+  },
+  "amount": 100,
+  "convertedAmount": 116.28
+}
