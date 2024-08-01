@@ -45,46 +45,25 @@ docker-compose up
 
 Вы можете протестировать API-эндпоинты, используя такие инструменты, как Postman, или отправляя HTTP-запросы напрямую. Ниже приведены доступные эндпоинты:
 
-### GET /currencies
 
+
+```json
+ GET /currencies
 Получить список всех доступных валют.
 
+
 [
-  {
-    "id": 1,
-    "fullName": "Australian Dollar",
-    "code": "AUD",
-    "sign": "A$"
-  },
-  {
-    "id": 3,
-    "fullName": "Euro",
-    "code": "EUR",
-    "sign": "€"
-  },
-  {
-    "id": 4,
-    "fullName": "Japanese Yen",
-    "code": "JPY",
-    "sign": "¥"
-  },
-  {
-    "id": 5,
-    "fullName": "British Pound",
-    "code": "GBP",
-    "sign": "£"
-  },
-  {
-    "id": 6,
-    "fullName": "Russian Ruble",
-    "code": "RUB",
-    "sign": "₽"
-  }
+  { "id": 1, "fullName": "Australian Dollar", "code": "AUD", "sign": "A$" },
+  { "id": 3, "fullName": "Euro", "code": "EUR", "sign": "€" },
+  { "id": 4, "fullName": "Japanese Yen", "code": "JPY", "sign": "¥" },
+  { "id": 5, "fullName": "British Pound", "code": "GBP", "sign": "£" },
+  { "id": 6, "fullName": "Russian Ruble", "code": "RUB", "sign": "₽" }
 ]
 
 
-### GET /currency/EUR
 
+
+ GET /currency/EUR
 Получить детали для конкретной валюты.
 
 {
@@ -95,8 +74,8 @@ docker-compose up
 }
 
 
-### POST /currencies
 
+POST /currencies
 Добавить новую валюту.
 
 {
@@ -107,8 +86,7 @@ docker-compose up
 }
 
 
-### GET /exchangeRates
-
+ GET /exchangeRates
 Получить курсы обмена между валютами.
 
 [
@@ -163,8 +141,7 @@ docker-compose up
 ]
 
 
-### GET /exchangeRate/USDRUB
-
+ GET /exchangeRate/USDRUB
 Получить курс обмена для USD на RUB.
 
 {
@@ -185,8 +162,7 @@ docker-compose up
 }
 
 
-### POST /exchangeRates
-
+ POST /exchangeRates
 Добавить новый курс обмена.
 
 {
@@ -207,8 +183,7 @@ docker-compose up
 }
 
 
-### PATCH /exchangeRate/USDRUB
-
+ PATCH /exchangeRate/USDRUB
 Обновить курс обмена для USD на RUB.
 
 {
@@ -229,8 +204,7 @@ docker-compose up
 }
 
 
-### GET /exchange?from=BASE_CURRENCY_CODE&to=TARGET_CURRENCY_CODE&amount=$AMOUNT
-
+ GET /exchange?from=BASE_CURRENCY_CODE&to=TARGET_CURRENCY_CODE&amount=$AMOUNT
 Конвертировать сумму из одной валюты в другую.
 
 {
@@ -249,3 +223,4 @@ docker-compose up
   "amount": 100,
   "convertedAmount": 116.28
 }
+
