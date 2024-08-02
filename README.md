@@ -19,37 +19,17 @@ Currency Exchange App is a RESTful service for managing currencies and exchange 
 - **Docker Compose**
 - **Gradle**
 
-## Getting Started
 
-### Clone the repository
-
-git clone https://github.com/yourusername/currency-exchange-app.git
-cd currency-exchange-app
-
-
-### Build the Docker containers
-
-docker-compose build
-
-
-### Running the Application
-
-После сборки контейнеров запустите приложение:
-
-docker-compose up
-
-
-Приложение будет доступно по адресу: [http://localhost:8081/CurrencyExchangeApp-1.0-SNAPSHOT/](http://localhost:8081/CurrencyExchangeApp-1.0-SNAPSHOT/.
 
 ## API Endpoints
 
-Вы можете протестировать API-эндпоинты, используя такие инструменты, как Postman, или отправляя HTTP-запросы напрямую. Ниже приведены доступные эндпоинты:
+
 
 
 
 ```json
  GET /currencies
-Получить список всех доступных валют.
+Get a list of all available currencies.
 
 
 [
@@ -64,7 +44,7 @@ docker-compose up
 
 
  GET /currency/EUR
-Получить детали для конкретной валюты.
+Get details for a specific currency.
 
 {
   "id": 3,
@@ -76,7 +56,7 @@ docker-compose up
 
 
 POST /currencies
-Добавить новую валюту.
+Add a new currency.
 
 {
   "id": 15,
@@ -87,7 +67,7 @@ POST /currencies
 
 
  GET /exchangeRates
-Получить курсы обмена между валютами.
+Get exchange rates between currencies.
 
 [
   {
@@ -142,7 +122,7 @@ POST /currencies
 
 
  GET /exchangeRate/USDRUB
-Получить курс обмена для USD на RUB.
+Get the exchange rate
 
 {
   "id": 2,
@@ -163,7 +143,7 @@ POST /currencies
 
 
  POST /exchangeRates
-Добавить новый курс обмена.
+Add a new exchange rate.
 
 {
   "id": 11,
@@ -184,7 +164,7 @@ POST /currencies
 
 
  PATCH /exchangeRate/USDRUB
-Обновить курс обмена для USD на RUB.
+Update the exchange rate
 
 {
   "id": 2,
@@ -205,7 +185,7 @@ POST /currencies
 
 
  GET /exchange?from=BASE_CURRENCY_CODE&to=TARGET_CURRENCY_CODE&amount=$AMOUNT
-Конвертировать сумму из одной валюты в другую.
+Convert an amount from one currency to another.
 
 {
   "baseCurrency": {
