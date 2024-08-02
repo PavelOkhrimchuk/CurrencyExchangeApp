@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class ReceiveCurrencyServlet extends BaseServlet {
+public class ReceiveCurrencyServlet extends CurrencyBaseServlet {
 
 
 
@@ -16,7 +16,6 @@ public class ReceiveCurrencyServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String currencyCode = req.getPathInfo() != null ? req.getPathInfo().substring(1) : null;
-
         if (currencyCode == null || currencyCode.isEmpty()) {
             sendJsonError(resp, HttpServletResponse.SC_BAD_REQUEST, "Currency code is missing from the URL");
             return;

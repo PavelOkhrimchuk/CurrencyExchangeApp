@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class CurrencyServlet extends BaseServlet {
+public class CurrencyServlet extends CurrencyBaseServlet {
 
 
 

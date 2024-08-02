@@ -11,7 +11,6 @@ public class PropertiesUtil {
         try {
             loadProperties("hikari.properties");
         } catch (IOException e) {
-            e.printStackTrace();
             throw new RuntimeException("Failed to load properties file.", e);
         }
     }

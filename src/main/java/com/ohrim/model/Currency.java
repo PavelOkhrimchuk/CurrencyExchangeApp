@@ -15,7 +15,4 @@ public class Currency {
     private String fullName;
     private String sign;
 
-
-
-
 }

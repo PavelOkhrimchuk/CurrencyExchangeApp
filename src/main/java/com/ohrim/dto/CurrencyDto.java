@@ -15,9 +15,4 @@ public class CurrencyDto {
     private String code;
     private String sign;
 
-
-
-
-
-
 }

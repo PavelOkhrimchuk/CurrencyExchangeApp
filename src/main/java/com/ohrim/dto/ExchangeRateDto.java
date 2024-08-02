@@ -16,9 +16,4 @@ public class ExchangeRateDto {
     private CurrencyDto targetCurrency;
     private BigDecimal rate;
 
-
-
-
-
-
 }

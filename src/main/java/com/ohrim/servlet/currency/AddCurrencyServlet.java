@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class AddCurrencyServlet extends BaseServlet {
+public class AddCurrencyServlet extends CurrencyBaseServlet {
 
 
 

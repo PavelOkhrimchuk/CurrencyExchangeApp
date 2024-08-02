@@ -38,7 +38,7 @@ public class ExchangeServlet extends ExchangeBaseServlet {
             response.put("baseCurrency", result.getBaseCurrency());
             response.put("targetCurrency", result.getTargetCurrency());
             response.put("amount", amount);
-            response.put("convertedAmount", result.getRate()); // Здесь используем значение rate как convertedAmount
+            response.put("convertedAmount", result.getRate());
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.setContentType("application/json");

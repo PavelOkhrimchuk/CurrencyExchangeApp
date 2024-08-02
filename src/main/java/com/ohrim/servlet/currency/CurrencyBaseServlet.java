@@ -1,28 +1,16 @@
 package com.ohrim.servlet.currency;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ohrim.repository.CurrencyRepository;
 import com.ohrim.repository.CurrencyRepositoryImpl;
 import com.ohrim.service.CurrencyService;
 import com.ohrim.service.CurrencyServiceImpl;
-import com.ohrim.servlet.ErrorResponse;
+import com.ohrim.servlet.BaseConfiguration;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-
-public abstract class BaseServlet extends HttpServlet {
+public abstract class CurrencyBaseServlet extends BaseConfiguration {
 
     protected CurrencyService currencyService;
 
-    protected final ObjectMapper objectMapper = new ObjectMapper();
-
-    protected void sendJsonError(HttpServletResponse resp, int statusCode, String message) throws IOException {
-        resp.setStatus(statusCode);
-        ErrorResponse errorResponse = new ErrorResponse(statusCode, message);
-        resp.getWriter().write(objectMapper.writeValueAsString(errorResponse));
-    }
 
     @Override
     public void init() throws ServletException {

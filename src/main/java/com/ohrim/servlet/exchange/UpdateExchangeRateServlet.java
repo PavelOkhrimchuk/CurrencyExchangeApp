@@ -3,6 +3,7 @@ package com.ohrim.servlet.exchange;
 import com.ohrim.dto.CurrencyDto;
 import com.ohrim.dto.ExchangeRateDto;
 import com.ohrim.exception.NotFoundException;
+import com.ohrim.util.RequestUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,9 +25,9 @@ public class UpdateExchangeRateServlet extends ExchangeBaseServlet{
     }
 
     private void doPatch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = req.getPathInfo() != null ? req.getPathInfo().substring(1) : null;
+        String pathInfo = RequestUtil.getPathInfo(req);
 
-        if (pathInfo == null || pathInfo.length() != 6) {
+        if (!RequestUtil.isValidCurrencyPair(pathInfo)) {
             sendJsonError(resp,HttpServletResponse.SC_BAD_REQUEST, "Currency pair is missing or incorrect in the URL");
             return;
         }
@@ -41,7 +42,6 @@ public class UpdateExchangeRateServlet extends ExchangeBaseServlet{
             stringBuilder.append(line);
         }
         String requestBody = stringBuilder.toString();
-
         String rateParam = null;
 
         String[] params = requestBody.split("&");
